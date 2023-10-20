@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#files {
+  display: none;
+}
+
+.screen {
+  display: flex;
+  justify-content: space-around;
+}
+
+.button_rooms {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat {
+  
+}
+
+.inputRooms {
+  background-color: #477354;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 20%;
+  margin-top: 10%;
+  margin-left: 40%;
+}
+
+.message_list {
+  list-style-type: none;
+}
+
+.myMsg {
+  background-color: red;
+}
+
+.otherMsg {
+  background-color: blue;
+}
