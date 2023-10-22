@@ -14,40 +14,44 @@ let active_rooms = []
 let myRoom
 
 io.on("connection", (socket) => {
-    console.log("Novo usuario conectado: " + socket.id)
+    function checkRooms() {
+        for (let i = 0; i <= active_rooms.length; i++) {
+            socket.leave(active_rooms[i])   
+        }
+    }
+
     socket.emit("all_rooms", active_rooms)
 
     socket.on("create_new_room", (room, name) => {
+        checkRooms()
+
         try {
             myRoom = room
-
             socket.join(room)
-            active_rooms.push(room)      
+            active_rooms.push(room)
         } catch(err) {
-            console.log(`Erro: ${err}`)
+            console.error(`Erro: ${err}`)
         } finally {
             io.to(room).emit("my_room", myRoom, name)
-            socket.emit("all_rooms", active_rooms)
-            
-            console.log(`Nova sala criada: ${room}`)
-            console.log(active_rooms)
+            io.emit("all_rooms", active_rooms)
         }
     })
 
     socket.on("join_room", (room, name) => {
-        console.log(room)
+        checkRooms()
+
+        io.emit("all_rooms", active_rooms)
+
         try {
             socket.join(room)
         } catch(err) {
-            console.log(`Erro: ${err}`)
+            console.error(`Erro: ${err}`)
         } finally {
             io.to(room).emit("my_room", room, name)
-            console.log(`Nova usuário na sala: ${room}`)
         }
     })
 
     socket.on("send_message", (message, room, userId, type, FileName, name) => {
-        console.log(`Mensagem: ${message}\nSala: ${room}\nUsuário: ${userId}`)
         io.to(room).emit("recive_message", {
             id: userId, 
             msg: message, 
@@ -58,6 +62,4 @@ io.on("connection", (socket) => {
     })
 })
 
-server.listen(5000, () => {
-    console.log("Servidor rodando em http:localhost:5000/")
-})
+server.listen(5000, () => console.log("localhost:5000/"))

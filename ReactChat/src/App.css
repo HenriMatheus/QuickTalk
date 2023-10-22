@@ -1,44 +1,149 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  margin-left: 1rem;
+  color: white;
+  border: 2px solid white;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+p {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+input, button {
+  outline: none;
+  -moz-appearance:textfield;
+}
+
+.logo {
+  width: 10%;
+  height: 20%;
+  margin-left: 8%;
+  margin-top: 1%;
+}
+
+#root {
+  display: flex;
+  justify-content: space-around;
+  background-image: linear-gradient(#FFF0D3, #F8D48E);
+  height: 100vh;
 }
 
 #files {
   display: none;
 }
 
-.screen {
-  display: flex;
-  justify-content: space-around;
-}
-
 .button_rooms {
   display: flex;
   flex-direction: column;
-}
-
-.chat {
-  
+  margin-top: 8%;
 }
 
 .inputRooms {
   background-color: #477354;
   color: white;
   border: none;
-  border-radius: 20px;
-  padding: 20%;
-  margin-top: 10%;
-  margin-left: 40%;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 100%;
+  margin: 5%;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.514);
 }
 
-.message_list {
+.chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #707E6B;
+  border-radius: 10px;
+  width: 30%;
+  height: 80%;
+  margin-top: 3%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+}
+
+ul {
+  display: inline-block;
   list-style-type: none;
+  overflow: auto;
+}
+
+form {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 20px;
+  height: 95%;
+  width: 98%;
+  margin-left: 1%;
+}
+
+.msgBox {
+  width: 80%;
+  height: 100%;
+  border: none;
+}
+
+.msgButtons {
+  width: 8%;
+  height: 100%;
+  background: none;
+  border: none;
+  padding: 1%;
+}
+
+.imgButton {
+  width: 90%;
+  height: 98%;
 }
 
 .myMsg {
-  background-color: red;
+  background-color: #8eb681;
+  padding: 3%;
+  word-wrap: break-word;
 }
 
 .otherMsg {
-  background-color: blue;
+  background-color: #587a4c;
+  padding: 3%;
+  word-wrap: break-word;
+}
+
+.midia {
+  max-width: 200px;
+  max-height: 400px;
+}
+
+.doc {
+  color: black;
+  background-color: #f1c874;
+  text-decoration: none;
+  border: 2px #af9257 solid;
+  border-radius: 10px;
+  padding: 2%;
+}
+
+.roomIndicator {
+  margin-left: 10%;
+  margin-top: 10%;
+  padding: 5%;
+  text-align: center;
+  background-color: #477354;
+  border: 5px #223327 solid;
+  border-radius: 10px;
+  color: white;
 }

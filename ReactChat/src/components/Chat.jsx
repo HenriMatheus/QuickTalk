@@ -6,14 +6,20 @@ import { useState, useEffect } from "react"
 
 let myRoom
 let userName = ""
+let verify = true
 
 export default function Chat({ socket }) {
   const [message, newMessage] = useState("")
   const [messages, newMessages] = useState([])
 
-  socket.on("my_room", (room, name) => {
+  socket.on("my_room", (room, name, id) => {
     myRoom = room
-    userName = name
+
+    if (verify) {
+      userName = name
+    }
+
+    verify = false
   })
 
   useEffect(() => {
@@ -56,29 +62,26 @@ export default function Chat({ socket }) {
 
   return (
     <div className="chat">
-        <ul className="message_list">
-          <Message arrayMessages={messages} socket={socket} />
-        </ul>
-
-        <div>
+      <ul>
+        <Message arrayMessages={messages} socket={socket} />
+      </ul>
+      
+      <input type="file" id="files" onChange={addFiles}/>
+        
+      <div className="chatButtons">
           <form onSubmit={sendMessage}>
-            <input 
-              type="file" 
-              id="files"
-              onChange={addFiles}
-            />
-            
-            <button type="submit"><img src={enviar}/></button>
+            <button type="submit" className="msgButtons"><img src={enviar} className="imgButton"/></button>         
 
             <input 
               type="text" 
               placeholder="Escreva sua mensagem!"
               onChange={(event) => newMessage(event.target.value)}
               value={message}
+              className="msgBox"
             />
-          </form>
 
-          <button onClick={() => document.querySelector("#files").click()}><img src={addArquivo}/></button>
+            <button type="button" onClick={() => document.querySelector("#files").click()} className="msgButtons"><img src={addArquivo} className="imgButton"/></button>         
+          </form>
         </div>
     </div>
   )
