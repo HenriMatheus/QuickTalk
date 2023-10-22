@@ -13,6 +13,8 @@ const io = new Server(server, {
 let active_rooms = []
 let myRoom
 
+app.get("/", (req, res) => res.send("Hello, world!"))
+
 io.on("connection", (socket) => {
     function checkRooms() {
         for (let i = 0; i <= active_rooms.length; i++) {
