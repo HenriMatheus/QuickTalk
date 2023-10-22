@@ -20,10 +20,23 @@ io.on("connection", (socket) => {
         }
     }
 
+    function emptyRooms() {
+        for (let i = 0; i < active_rooms.length; i++) {
+            let clientsInRoom = io.sockets.adapter.rooms.get(active_rooms[i])
+            let numClients = clientsInRoom ? clientsInRoom.size : 0
+            
+            if (numClients === 0) {
+                active_rooms.includes(active_rooms[i]) ? active_rooms.splice(active_rooms.indexOf(active_rooms[i]), 1) : 0
+                console.log(`A sala ${active_rooms[i]} esta vazia.`)
+            }
+        }
+    }
+
     socket.emit("all_rooms", active_rooms)
 
     socket.on("create_new_room", (room, name) => {
         checkRooms()
+        emptyRooms()
 
         try {
             myRoom = room
@@ -31,10 +44,12 @@ io.on("connection", (socket) => {
             active_rooms.push(room)
         } catch(err) {
             console.error(`Erro: ${err}`)
-        } finally {
-            io.to(room).emit("my_room", myRoom, name)
-            io.emit("all_rooms", active_rooms)
-        }
+        } 
+
+        io.to(room).emit("my_room", myRoom, name)
+        io.emit("all_rooms", active_rooms)  
+
+        console.log(active_rooms)
     })
 
     socket.on("join_room", (room, name) => {
@@ -62,4 +77,4 @@ io.on("connection", (socket) => {
     })
 })
 
-server.listen(5000, () => console.log("localhost:5000/"))
+server.listen(5000,() => console.log("Servidor ligado!"))
